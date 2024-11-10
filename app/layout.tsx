@@ -45,9 +45,7 @@ export default function RootLayout({
                     Memories
                   </a>
                 </div>
-                <div>
-                  <UserNav />
-                </div>
+                <UserNav />
                 <div className="mr-5 flex items-center">
                   <ThemeSwitcher />
                 </div>

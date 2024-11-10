@@ -11,6 +11,8 @@ import { Avatar, AvatarFallback } from "@/components//ui/avatar";
 import { signOutAction } from "@/app/actions";
 import { getUserProfile } from "@/utils/supabase/queries";
 import { getName, getNameInitials } from "@/utils/utils";
+import Link from "next/link";
+import { User } from "lucide-react";
 
 export const UserNav = async () => {
   const supabase = await createClient();
@@ -20,7 +22,16 @@ export const UserNav = async () => {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return null;
+    return (
+      <div className="flex gap-2">
+        <Button asChild size="sm" variant={"outline"}>
+          <Link href="/sign-in">Sign in</Link>
+        </Button>
+        <Button asChild size="sm" variant={"default"}>
+          <Link href="/sign-up">Sign up</Link>
+        </Button>
+      </div>
+    );
   }
 
   const userProfile = await getUserProfile(supabase, user.id);
@@ -30,7 +41,9 @@ export const UserNav = async () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>{getNameInitials(userProfile)}</AvatarFallback>
+            <AvatarFallback>
+              {userProfile.first_name ? getNameInitials(userProfile) : <User />}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
