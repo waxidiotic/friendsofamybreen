@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -25,8 +24,6 @@ export const UserNav = async () => {
   }
 
   const userProfile = await getUserProfile(supabase, user.id);
-
-  console.log(userProfile);
 
   return (
     <DropdownMenu>

@@ -13,3 +13,15 @@ export const getUserProfile = cache(
     return profile as UserProfile;
   }
 );
+
+export const isUserrAdmin = cache(
+  async (supabase: SupabaseClient, userId: string) => {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+    return (profile as UserProfile).role === "admin";
+  }
+);
