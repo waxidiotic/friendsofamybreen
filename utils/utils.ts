@@ -23,3 +23,17 @@ export function getName(userProfile: UserProfile) {
 export function getNameInitials(userProfile: UserProfile) {
   return `${userProfile.first_name[0]}${(userProfile.last_name || "")[0]}`.toUpperCase();
 }
+
+export function formatTimestamp(timestamp: string) {
+  // Create a Date object from the timestamp
+  const date = new Date(timestamp);
+
+  // Format the date in a human-readable format
+  return date.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}

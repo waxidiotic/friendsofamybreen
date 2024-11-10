@@ -1,6 +1,11 @@
 import { Post } from "@/components/post";
+import { getPosts } from "@/utils/supabase/queries";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function Index() {
+  const supabase = await createClient();
+  const posts = await getPosts(supabase);
+
   return (
     <main className="mb-auto">
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -10,9 +15,13 @@ export default async function Index() {
           </h1>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          <Post />
-          <Post />
-          <Post />
+          {posts?.length ? (
+            posts?.map((post) => <Post key={post.id} post={post} />)
+          ) : (
+            <div className="py-12">
+              <p>No posts found</p>
+            </div>
+          )}
         </ul>
       </div>
     </main>

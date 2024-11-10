@@ -25,3 +25,9 @@ export const isUserAdmin = cache(
     return (profile as UserProfile).role === "admin";
   }
 );
+
+export const getPosts = cache(async (supabase: SupabaseClient) => {
+  const { data: posts } = await supabase.from("posts").select("*");
+
+  return posts;
+});

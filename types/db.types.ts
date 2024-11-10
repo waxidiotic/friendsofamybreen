@@ -6,3 +6,11 @@ export interface UserProfile {
 }
 
 type UserRole = "admin" | "user";
+
+export interface Post {
+  id: string;
+  created_at: string;
+  title: string;
+  body: string;
+  author: string;
+}
