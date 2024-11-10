@@ -15,10 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { createPostAction } from "@/app/actions";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
-  title: z.string({ required_error: "Title is required" }),
-  body: z.string({ required_error: "Body is required" }),
+  title: z.string().min(2, { message: "Title must not be blank" }),
+  body: z.string().min(2, { message: "Body must not be blank" }),
 });
 
 export type CreatePostFormValues = z.infer<typeof formSchema>;
@@ -26,11 +28,22 @@ export type CreatePostFormValues = z.infer<typeof formSchema>;
 export const CreatePost = () => {
   const form = useForm<CreatePostFormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      body: "",
+    },
   });
 
   const onSubmit = async (values: CreatePostFormValues) => {
-    const response = await createPostAction(values);
-    console.log(response);
+    try {
+      await createPostAction(values);
+      toast.success("Post created successfully");
+      setTimeout(() => {
+        redirect("/");
+      }, 1000);
+    } catch (error) {
+      toast.error("There was an error creating the post");
+    }
   };
 
   return (

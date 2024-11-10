@@ -27,7 +27,10 @@ export const isUserAdmin = cache(
 );
 
 export const getPosts = cache(async (supabase: SupabaseClient) => {
-  const { data: posts } = await supabase.from("posts").select("*");
+  const { data: posts } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   return posts;
 });

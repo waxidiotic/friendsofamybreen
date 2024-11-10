@@ -138,10 +138,12 @@ export const createPostAction = async (formData: CreatePostFormValues) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const response = supabase
+  const response = await supabase
     .from("posts")
     .insert({ title: formData.title, body: formData.body, author: user?.id })
     .select();
 
-  return response;
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
 };

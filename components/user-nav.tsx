@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components//ui/avatar";
 import { signOutAction } from "@/app/actions";
-import { getUserProfile } from "@/utils/supabase/queries";
+import { getUserProfile, isUserAdmin } from "@/utils/supabase/queries";
 import { getName, getNameInitials } from "@/utils/utils";
 import Link from "next/link";
 import { User } from "lucide-react";
@@ -35,6 +35,7 @@ export const UserNav = async () => {
   }
 
   const userProfile = await getUserProfile(supabase, user.id);
+  const userIsAdmin = await isUserAdmin(supabase, user.id);
 
   return (
     <DropdownMenu>
@@ -61,8 +62,14 @@ export const UserNav = async () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        {/* <DropdownMenuItem className="hover:bg-accent">Profile</DropdownMenuItem> */}
-        <DropdownMenuSeparator />
+        {userIsAdmin && (
+          <>
+            <DropdownMenuItem className="hover:bg-accent">
+              <Link href="/admin/create-post">Create a Post</Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuItem className="hover:bg-accent">
           <form action={signOutAction}>
             <Button
