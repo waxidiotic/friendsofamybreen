@@ -14,7 +14,7 @@ export const getUserProfile = cache(
   }
 );
 
-export const isUserrAdmin = cache(
+export const isUserAdmin = cache(
   async (supabase: SupabaseClient, userId: string) => {
     const { data: profile } = await supabase
       .from("profiles")

@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { isUserAdmin } from "./queries";
 
 export const updateSession = async (request: NextRequest) => {
   // This `try/catch` block is only here for the interactive tutorial.
@@ -38,6 +39,13 @@ export const updateSession = async (request: NextRequest) => {
     // This will refresh session if expired - required for Server Components
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
+    const isAdmin = user?.data?.user
+      ? await isUserAdmin(supabase, user?.data.user?.id)
+      : false;
+
+    if (request.nextUrl.pathname.startsWith("/admin") && !isAdmin) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
 
     return response;
   } catch (e) {

@@ -33,17 +33,17 @@ export default function RootLayout({
         >
           <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
             <header className="flex items-center w-full justify-between py-10">
-              <a className="break-words" href="/blog">
+              <a className="break-words" href="/">
                 Friends of Amy Breen
               </a>
               <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
                 <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
-                  <a className="block" href="">
+                  <a className="block" href="/">
                     Updates
                   </a>
-                  <a className="block" href="">
+                  {/* <a className="block" href="/">
                     Memories
-                  </a>
+                  </a> */}
                 </div>
                 <UserNav />
                 <div className="mr-5 flex items-center">

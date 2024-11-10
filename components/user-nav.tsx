@@ -50,16 +50,18 @@ export const UserNav = async () => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <div className="px-2 py-1 5 text-sm font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">
-              {getName(userProfile)}
-            </p>
+            {userProfile.first_name && (
+              <p className="text-sm font-medium leading-none">
+                {getName(userProfile)}
+              </p>
+            )}
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
             </p>
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:bg-accent">Profile</DropdownMenuItem>
+        {/* <DropdownMenuItem className="hover:bg-accent">Profile</DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="hover:bg-accent">
           <form action={signOutAction}>
