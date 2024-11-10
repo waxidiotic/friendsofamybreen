@@ -1,4 +1,4 @@
-export default function Post() {
+export const Post = () => {
   return (
     <li className="py-12">
       <article>
@@ -13,7 +13,7 @@ export default function Post() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-2xl font-bold leading-8 tracking-light">
-                  <a href="/blog" className="text-gray-900 dark:gray-100">
+                  <a href="/blog" className="text-gray-900 dark:text-gray-100">
                     Title of the Post
                   </a>
                 </h2>
@@ -33,4 +33,4 @@ export default function Post() {
       </article>
     </li>
   );
-}
+};

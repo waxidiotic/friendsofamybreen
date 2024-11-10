@@ -1,3 +1,4 @@
+import { UserProfile } from "@/types/db.types";
 import { redirect } from "next/navigation";
 
 /**
@@ -10,7 +11,15 @@ import { redirect } from "next/navigation";
 export function encodedRedirect(
   type: "error" | "success",
   path: string,
-  message: string,
+  message: string
 ) {
   return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
+}
+
+export function getName(userProfile: UserProfile) {
+  return `${userProfile.first_name} ${userProfile.last_name || ""}`;
+}
+
+export function getNameInitials(userProfile: UserProfile) {
+  return `${userProfile.first_name[0]}${(userProfile.last_name || "")[0]}`.toUpperCase();
 }
