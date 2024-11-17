@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Flower2Icon, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Flower2Icon } from "lucide-react";
 import { UserNav } from "@/components/user-nav";
 import { ThemeSwitcher } from "./theme-switcher";
 
@@ -13,39 +12,16 @@ export default async function Header() {
             <Link
               href="/"
               aria-label="Home"
-              className="flex space-x-4 items-center font-semibold"
+              className="flex space-x-4 items-center font-semibold text-primary"
             >
               <Flower2Icon />
               <div className="text-xl">Friends of Amy Breen</div>
             </Link>
           </div>
-          <div className="hidden md:flex md:items-center md:space-x-6">
-            <nav className="flex space-x-4 items-center">
-              <Button asChild variant="ghost">
-                <Link
-                  href="/updates"
-                  className="text-muted-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Updates
-                </Link>
-              </Button>
-              {/* <Button asChild variant="ghost">
-                <Link
-                  href="/memories"
-                  className="text-muted-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Memories
-                </Link>
-              </Button> */}
-              <ThemeSwitcher />
-              <UserNav />
-            </nav>
-          </div>
-          <div className="flex md:hidden">
-            <Button variant="ghost" size="icon" aria-label="Open menu">
-              <Menu className="h-6 w-6" />
-            </Button>
-          </div>
+          <nav className="flex space-x-4 items-center">
+            <ThemeSwitcher />
+            <UserNav />
+          </nav>
         </div>
       </div>
     </header>
