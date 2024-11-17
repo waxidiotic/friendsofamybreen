@@ -12,7 +12,7 @@ import { signOutAction } from "@/app/actions";
 import { getUserProfile, isUserAdmin } from "@/utils/supabase/queries";
 import { getName, getNameInitials } from "@/utils/utils";
 import Link from "next/link";
-import { User } from "lucide-react";
+import { UserIcon } from "lucide-react";
 
 export const UserNav = async () => {
   const supabase = await createClient();
@@ -23,12 +23,9 @@ export const UserNav = async () => {
 
   if (!user) {
     return (
-      <div className="flex gap-2">
-        <Button asChild size="sm" variant={"outline"}>
-          <Link href="/sign-in">Sign in</Link>
-        </Button>
-        <Button asChild size="sm" variant={"default"}>
-          <Link href="/sign-up">Sign up</Link>
+      <div className="pl-2">
+        <Button variant="outline">
+          <Link href="/sign-in">Sign In</Link>
         </Button>
       </div>
     );
@@ -40,10 +37,14 @@ export const UserNav = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button variant="ghost" className="relative w-8 h-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarFallback>
-              {userProfile.first_name ? getNameInitials(userProfile) : <User />}
+              {userProfile.first_name ? (
+                getNameInitials(userProfile)
+              ) : (
+                <UserIcon />
+              )}
             </AvatarFallback>
           </Avatar>
         </Button>
