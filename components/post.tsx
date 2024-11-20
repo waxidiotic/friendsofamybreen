@@ -24,7 +24,7 @@ export const Post = ({ post }: { post: IPost }) => {
                 </h2>
               </div>
               <div className="prose max-w-none text-foreground">
-                {post.body}
+                <span dangerouslySetInnerHTML={{ __html: post.body }} />
               </div>
             </div>
           </div>

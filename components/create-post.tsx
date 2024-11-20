@@ -8,15 +8,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { createPostAction } from "@/app/actions";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import { TextEditor } from "./text-editor";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title must not be blank" }),
@@ -34,7 +34,15 @@ export const CreatePost = () => {
     },
   });
 
+  const vals = form.watch();
+  console.log(vals.body);
+
   const onSubmit = async (values: CreatePostFormValues) => {
+    if (values.body.length < 10) {
+      form.setError("body", { message: "Body must not be blank" });
+      return;
+    }
+
     try {
       await createPostAction(values);
       toast.success("Post created successfully");
@@ -66,11 +74,15 @@ export const CreatePost = () => {
           <FormField
             control={form.control}
             name="body"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>Body</FormLabel>
                 <FormControl>
-                  <Textarea rows={12} {...field} />
+                  <Controller
+                    name="body"
+                    control={form.control}
+                    render={() => <TextEditor setValue={form.setValue} />}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
