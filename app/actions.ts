@@ -141,7 +141,12 @@ export const createPostAction = async (formData: CreatePostFormValues) => {
 
   const response = await supabase
     .from("posts")
-    .insert({ title: formData.title, body: formData.body, author: user?.id })
+    .insert({
+      title: formData.title,
+      body: formData.body,
+      body_json: formData.body_json,
+      author: user?.id,
+    })
     .select();
 
   if (response.error) {

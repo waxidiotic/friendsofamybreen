@@ -13,4 +13,5 @@ export interface Post {
   title: string;
   body: string;
   author: string;
+  body_json: any;
 }

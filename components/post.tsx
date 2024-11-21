@@ -1,5 +1,7 @@
 import { Post as IPost } from "@/types/db.types";
 import { formatTimestamp } from "@/utils/utils";
+import { generateHTML } from "@tiptap/html";
+import StarterKit from "@tiptap/starter-kit";
 
 export const Post = ({ post }: { post: IPost }) => {
   return (
@@ -24,7 +26,11 @@ export const Post = ({ post }: { post: IPost }) => {
                 </h2>
               </div>
               <div className="prose max-w-none text-foreground">
-                {post.body}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: generateHTML(post.body_json, [StarterKit]),
+                  }}
+                />
               </div>
             </div>
           </div>
