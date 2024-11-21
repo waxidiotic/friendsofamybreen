@@ -21,6 +21,7 @@ import { TextEditor } from "./text-editor";
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title must not be blank" }),
   body: z.string().min(2, { message: "Body must not be blank" }),
+  body_json: z.any(),
 });
 
 export type CreatePostFormValues = z.infer<typeof formSchema>;
@@ -35,7 +36,6 @@ export const CreatePost = () => {
   });
 
   const vals = form.watch();
-  console.log(vals.body);
 
   const onSubmit = async (values: CreatePostFormValues) => {
     if (values.body.length < 10) {
