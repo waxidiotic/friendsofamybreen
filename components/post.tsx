@@ -1,9 +1,10 @@
-import { Post as IPost } from "@/types/db.types";
+import { Post as PostType } from "@/types";
 import { formatTimestamp } from "@/utils/utils";
 import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
+import type { JSONContent } from "@tiptap/react";
 
-export const Post = ({ post }: { post: IPost }) => {
+export const Post = ({ post }: { post: PostType }) => {
   return (
     <li className="py-12">
       <article>
@@ -28,7 +29,9 @@ export const Post = ({ post }: { post: IPost }) => {
               <div className="prose max-w-none text-foreground">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(post.body_json, [StarterKit]),
+                    __html: generateHTML(post.body_json as JSONContent, [
+                      StarterKit,
+                    ]),
                   }}
                 />
               </div>

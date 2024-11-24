@@ -1,4 +1,4 @@
-import { UserProfile } from "@/types/db.types";
+import { UserProfile, Posts } from "@/types";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { cache } from "react";
 
@@ -30,7 +30,8 @@ export const getPosts = cache(async (supabase: SupabaseClient) => {
   const { data: posts } = await supabase
     .from("posts")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .returns<Posts>();
 
   return posts;
 });

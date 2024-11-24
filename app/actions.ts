@@ -145,7 +145,7 @@ export const createPostAction = async (formData: CreatePostFormValues) => {
       title: formData.title,
       body: formData.body,
       body_json: formData.body_json,
-      author: user?.id,
+      author: user?.id || "",
     })
     .select();
 
