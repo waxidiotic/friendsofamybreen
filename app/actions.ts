@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { CreatePostFormValues } from "@/components/create-post";
 import { revalidatePath } from "next/cache";
+import { Image } from "@/types";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -148,6 +149,33 @@ export const createPostAction = async (formData: CreatePostFormValues) => {
       author: user?.id || "",
     })
     .select();
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+};
+
+export const createImagesAction = async (imageData: Image) => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const response = await supabase.from("images").insert({
+    asset_id: imageData.asset_id,
+    public_id: imageData.public_id,
+    width: imageData.width,
+    height: imageData.height,
+    format: imageData.format,
+    resource_type: imageData.resource_type,
+    type: imageData.type,
+    url: imageData.url,
+    secure_url: imageData.secure_url,
+    original_filename: imageData.original_filename,
+    uploaded_to_cloudinary_at: imageData.created_at,
+    uploaded_by: user?.id || "",
+  });
 
   if (response.error) {
     throw new Error(response.error.message);
