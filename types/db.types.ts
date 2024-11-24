@@ -9,6 +9,98 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      images: {
+        Row: {
+          api_key: string | null
+          asset_folder: string | null
+          asset_id: string | null
+          bytes: number | null
+          created_at: string
+          display_name: string | null
+          etag: string | null
+          format: string | null
+          height: number | null
+          id: number
+          original_filename: string | null
+          pages: number | null
+          placeholder: boolean | null
+          public_id: string | null
+          resource_type: string | null
+          secure_url: string | null
+          signature: string | null
+          tags: string | null
+          type: string | null
+          uploaded_by: string | null
+          uploaded_to_cloudinary_at: string | null
+          url: string | null
+          version: number | null
+          version_id: string | null
+          width: number | null
+        }
+        Insert: {
+          api_key?: string | null
+          asset_folder?: string | null
+          asset_id?: string | null
+          bytes?: number | null
+          created_at?: string
+          display_name?: string | null
+          etag?: string | null
+          format?: string | null
+          height?: number | null
+          id?: number
+          original_filename?: string | null
+          pages?: number | null
+          placeholder?: boolean | null
+          public_id?: string | null
+          resource_type?: string | null
+          secure_url?: string | null
+          signature?: string | null
+          tags?: string | null
+          type?: string | null
+          uploaded_by?: string | null
+          uploaded_to_cloudinary_at?: string | null
+          url?: string | null
+          version?: number | null
+          version_id?: string | null
+          width?: number | null
+        }
+        Update: {
+          api_key?: string | null
+          asset_folder?: string | null
+          asset_id?: string | null
+          bytes?: number | null
+          created_at?: string
+          display_name?: string | null
+          etag?: string | null
+          format?: string | null
+          height?: number | null
+          id?: number
+          original_filename?: string | null
+          pages?: number | null
+          placeholder?: boolean | null
+          public_id?: string | null
+          resource_type?: string | null
+          secure_url?: string | null
+          signature?: string | null
+          tags?: string | null
+          type?: string | null
+          uploaded_by?: string | null
+          uploaded_to_cloudinary_at?: string | null
+          url?: string | null
+          version?: number | null
+          version_id?: string | null
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "images_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           author: string
