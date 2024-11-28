@@ -1,4 +1,4 @@
-import { UserProfile, Posts } from "@/types";
+import { UserProfile, Posts, Image } from "@/types";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { cache } from "react";
 
@@ -34,4 +34,14 @@ export const getPosts = cache(async (supabase: SupabaseClient) => {
     .returns<Posts>();
 
   return posts;
+});
+
+export const getImages = cache(async (supabase: SupabaseClient) => {
+  const { data: images } = await supabase
+    .from("images")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .returns<Image[]>();
+
+  return images;
 });
