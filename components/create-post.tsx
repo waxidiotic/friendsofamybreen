@@ -54,7 +54,7 @@ export const CreatePost = () => {
   };
 
   return (
-    <section className="py-12">
+    <section>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

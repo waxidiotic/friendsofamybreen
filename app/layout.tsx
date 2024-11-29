@@ -30,7 +30,9 @@ export default async function RootLayout({
         >
           <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0 h-screen">
             <Header />
-            {children}
+            <main className="mb-auto">
+              <div className="flex flex-col gap-8">{children}</div>
+            </main>
           </section>
           <Toaster richColors />
         </ThemeProvider>
