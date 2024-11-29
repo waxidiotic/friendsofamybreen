@@ -1,7 +1,6 @@
 import { PhotoThumbnail } from "@/components/photo-thumbnail";
 import { getImages } from "@/utils/supabase/queries";
 import { createClient } from "@/utils/supabase/server";
-import Image from "next/image";
 
 export default async function PhotosPage() {
   const supabase = await createClient();

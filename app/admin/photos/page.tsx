@@ -1,4 +1,5 @@
 import { PageTitle } from "@/components/page-title";
+import { PhotoEditSheet } from "@/components/photo-edit-sheet";
 import { PhotoThumbnail } from "@/components/photo-thumbnail";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,7 +33,7 @@ export default async function PhotosAdminPage() {
         <TableBody>
           {images?.length ? (
             images.map((image) => (
-              <TableRow>
+              <TableRow key={image.asset_id}>
                 <TableCell>
                   {new Date(image.created_at).toDateString()}
                 </TableCell>
@@ -45,9 +46,7 @@ export default async function PhotosAdminPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2 items-center">
-                    <Button type="button" variant="outline">
-                      Edit
-                    </Button>
+                    <PhotoEditSheet image={image} />
                     <Button type="button" variant="destructive">
                       Delete
                     </Button>
