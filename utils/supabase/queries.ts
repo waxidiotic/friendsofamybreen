@@ -36,7 +36,18 @@ export const getPosts = cache(async (supabase: SupabaseClient) => {
   return posts;
 });
 
-export const getImages = cache(async (supabase: SupabaseClient) => {
+export const getPublicImages = cache(async (supabase: SupabaseClient) => {
+  const { data: images } = await supabase
+    .from("images")
+    .select("*")
+    .eq("visibility", true)
+    .order("created_at", { ascending: false })
+    .returns<Image[]>();
+
+  return images;
+});
+
+export const getAllImages = cache(async (supabase: SupabaseClient) => {
   const { data: images } = await supabase
     .from("images")
     .select("*")

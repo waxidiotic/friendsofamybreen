@@ -10,12 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getImages } from "@/utils/supabase/queries";
+import { getAllImages } from "@/utils/supabase/queries";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function PhotosAdminPage() {
   const supabase = await createClient();
-  const images = await getImages(supabase);
+  const images = await getAllImages(supabase);
 
   return (
     <>

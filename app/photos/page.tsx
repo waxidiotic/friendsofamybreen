@@ -1,10 +1,10 @@
 import { PhotoThumbnail } from "@/components/photo-thumbnail";
-import { getImages } from "@/utils/supabase/queries";
+import { getPublicImages } from "@/utils/supabase/queries";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function PhotosPage() {
   const supabase = await createClient();
-  const images = await getImages(supabase);
+  const images = await getPublicImages(supabase);
 
   return (
     <main className="mb-auto">
