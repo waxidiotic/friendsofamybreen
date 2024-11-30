@@ -1,9 +1,7 @@
-import { deleteImageAction } from "@/app/actions";
 import { DeletePhotoButton } from "@/components/delete-photo-button";
 import { PageTitle } from "@/components/page-title";
 import { PhotoEditSheet } from "@/components/photo-edit-sheet";
 import { PhotoThumbnail } from "@/components/photo-thumbnail";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,

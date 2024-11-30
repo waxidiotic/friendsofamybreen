@@ -21,7 +21,6 @@ import { Image } from "@/types";
 import { Form, FormDescription, FormField, FormLabel } from "./ui/form";
 import { updateImageDetailsAction } from "@/app/actions";
 import { toast } from "sonner";
-import { revalidatePath } from "next/cache";
 
 const formSchema = z.object({
   visibility: z.boolean(),

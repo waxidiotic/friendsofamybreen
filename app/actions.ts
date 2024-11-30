@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { CreatePostFormValues } from "@/components/create-post";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { Image } from "@/types";
 import { PhotoEditFormValues } from "@/components/photo-edit-sheet";
 
