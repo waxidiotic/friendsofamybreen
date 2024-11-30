@@ -21,16 +21,16 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground pl-[calc(100vw-100%)]">
+      <body className="bg-background text-foreground pl-[calc(100vw-100%)] mb-8">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0 h-screen">
+          <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
             <Header />
-            <main className="mb-auto">
+            <main>
               <div className="flex flex-col gap-8">{children}</div>
             </main>
           </section>

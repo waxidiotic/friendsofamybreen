@@ -14,7 +14,7 @@ export default async function PhotosPage() {
             Photos
           </h1>
         </div>
-        <ul className="gap-5 columns-1 sm:columns-2 sm:gap-8 md:columns-3 lg:columns-4 [&>img:not(:first-child)]:mt-8 pt-8">
+        <ul className="gap-5 columns-1 sm:columns-2 sm:gap-8 md:columns-3 lg:columns-4 [&>li:not(:first-child)]:mt-8 pt-8">
           {images?.map(
             (img) =>
               img?.secure_url && (
