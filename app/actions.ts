@@ -209,3 +209,15 @@ export const updateImageDetailsAction = async ({
 
   return revalidatePath("/admin/photos");
 };
+
+export const deleteImageAction = async (id: string) => {
+  const supabase = await createClient();
+
+  const response = await supabase.from("images").delete().eq("public_id", id);
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return revalidatePath("/admin/photos");
+};
