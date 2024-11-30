@@ -19,6 +19,12 @@ export default async function Header() {
             </Link>
           </div>
           <nav className="flex space-x-4 items-center">
+            <Link href="/" className="text-muted-foreground hidden sm:block">
+              Updates
+            </Link>
+            <Link href="/photos" className="text-muted-foreground">
+              Photos
+            </Link>
             <ThemeSwitcher />
             <UserNav />
           </nav>

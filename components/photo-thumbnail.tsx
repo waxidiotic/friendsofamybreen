@@ -25,7 +25,7 @@ export const PhotoThumbnail = ({
   const handlePhotoClick = () => setDialogOpen((prev) => !prev);
 
   return (
-    <li>
+    <li className="list-none">
       <div onClick={handlePhotoClick}>
         <CldImage
           width={width}

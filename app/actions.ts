@@ -130,6 +130,7 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  redirect("/");
   return revalidatePath("/");
 };
 
@@ -181,6 +182,8 @@ export const createImagesAction = async (imageData: Image) => {
   if (response.error) {
     throw new Error(response.error.message);
   }
+
+  return redirect("/photos");
 };
 
 export interface UpdateImageDetailsOptions {
