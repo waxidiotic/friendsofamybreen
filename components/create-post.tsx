@@ -35,8 +35,6 @@ export const CreatePost = () => {
     },
   });
 
-  const vals = form.watch();
-
   const onSubmit = async (values: CreatePostFormValues) => {
     if (values.body.length < 10) {
       form.setError("body", { message: "Body must not be blank" });
@@ -50,12 +48,13 @@ export const CreatePost = () => {
         redirect("/");
       }, 1000);
     } catch (error) {
+      console.error(error);
       toast.error("There was an error creating the post");
     }
   };
 
   return (
-    <section className="py-12">
+    <section>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

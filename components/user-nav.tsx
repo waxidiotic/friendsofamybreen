@@ -69,6 +69,10 @@ export const UserNav = async () => {
               <Link href="/admin/create-post">Create a Post</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuItem className="hover:bg-accent">
+              <Link href="/admin/photos">Photos Admin</Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
           </>
         )}
         <DropdownMenuItem className="hover:bg-accent">

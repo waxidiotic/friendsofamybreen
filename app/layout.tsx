@@ -2,7 +2,6 @@ import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/header";
-import { createClient } from "@/utils/supabase/server";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -20,15 +19,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground pl-[calc(100vw-100%)]">
+      <body className="bg-background text-foreground pl-[calc(100vw-100%)] mb-8">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -37,7 +30,9 @@ export default async function RootLayout({
         >
           <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
             <Header />
-            {children}
+            <main>
+              <div className="flex flex-col gap-8">{children}</div>
+            </main>
           </section>
           <Toaster richColors />
         </ThemeProvider>

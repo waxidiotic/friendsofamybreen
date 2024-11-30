@@ -6,6 +6,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { CreatePostFormValues } from "@/components/create-post";
 import { revalidatePath } from "next/cache";
+import { Image } from "@/types";
+import { PhotoEditFormValues } from "@/components/photo-edit-sheet";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -128,6 +130,7 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  redirect("/");
   return revalidatePath("/");
 };
 
@@ -145,11 +148,76 @@ export const createPostAction = async (formData: CreatePostFormValues) => {
       title: formData.title,
       body: formData.body,
       body_json: formData.body_json,
-      author: user?.id,
+      author: user?.id || "",
     })
     .select();
 
   if (response.error) {
     throw new Error(response.error.message);
   }
+};
+
+export const createImagesAction = async (imageData: Image) => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const response = await supabase.from("images").insert({
+    asset_id: imageData.asset_id,
+    public_id: imageData.public_id,
+    width: imageData.width,
+    height: imageData.height,
+    format: imageData.format,
+    resource_type: imageData.resource_type,
+    type: imageData.type,
+    url: imageData.url,
+    secure_url: imageData.secure_url,
+    original_filename: imageData.original_filename,
+    uploaded_to_cloudinary_at: imageData.created_at,
+    uploaded_by: user?.id || "",
+  });
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return redirect("/photos");
+};
+
+export interface UpdateImageDetailsOptions {
+  id: string;
+  data: PhotoEditFormValues;
+}
+
+export const updateImageDetailsAction = async ({
+  id,
+  data,
+}: UpdateImageDetailsOptions) => {
+  const supabase = await createClient();
+
+  const response = await supabase
+    .from("images")
+    .update({ display_name: data.description, visibility: data.visibility })
+    .eq("public_id", id)
+    .select();
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return revalidatePath("/admin/photos");
+};
+
+export const deleteImageAction = async (id: string) => {
+  const supabase = await createClient();
+
+  const response = await supabase.from("images").delete().eq("public_id", id);
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return revalidatePath("/admin/photos");
 };

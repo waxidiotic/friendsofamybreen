@@ -1,3 +1,4 @@
+import { PageTitle } from "@/components/page-title";
 import { Post } from "@/components/post";
 import { getPosts } from "@/utils/supabase/queries";
 import { createClient } from "@/utils/supabase/server";
@@ -7,23 +8,17 @@ export default async function Index() {
   const posts = await getPosts(supabase);
 
   return (
-    <main className="mb-auto">
-      <div className="divide-y divide-muted-foreground">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-light text-foreground sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
-          </h1>
-        </div>
-        <ul className="divide-y divide-muted-foreground">
-          {posts?.length ? (
-            posts?.map((post) => <Post key={post.id} post={post} />)
-          ) : (
-            <div className="py-12">
-              <p>No posts found</p>
-            </div>
-          )}
-        </ul>
-      </div>
-    </main>
+    <>
+      <PageTitle title="Latest" />
+      <ul className="divide-y divide-muted-foreground">
+        {posts?.length ? (
+          posts?.map((post) => <Post key={post.id} post={post} />)
+        ) : (
+          <div>
+            <p>No posts found</p>
+          </div>
+        )}
+      </ul>
+    </>
   );
 }

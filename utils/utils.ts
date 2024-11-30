@@ -1,4 +1,4 @@
-import { UserProfile } from "@/types/db.types";
+import { UserProfile } from "@/types";
 import { redirect } from "next/navigation";
 
 /**
@@ -21,7 +21,7 @@ export function getName(userProfile: UserProfile) {
 }
 
 export function getNameInitials(userProfile: UserProfile) {
-  return `${userProfile.first_name[0]}${(userProfile.last_name || "")[0]}`.toUpperCase();
+  return `${(userProfile.first_name || "")[0]}${(userProfile.last_name || "")[0]}`.toUpperCase();
 }
 
 export function formatTimestamp(timestamp: string) {
