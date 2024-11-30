@@ -35,6 +35,7 @@ export type Database = {
           url: string | null
           version: number | null
           version_id: string | null
+          visibility: boolean
           width: number | null
         }
         Insert: {
@@ -62,6 +63,7 @@ export type Database = {
           url?: string | null
           version?: number | null
           version_id?: string | null
+          visibility?: boolean
           width?: number | null
         }
         Update: {
@@ -89,6 +91,7 @@ export type Database = {
           url?: string | null
           version?: number | null
           version_id?: string | null
+          visibility?: boolean
           width?: number | null
         }
         Relationships: [

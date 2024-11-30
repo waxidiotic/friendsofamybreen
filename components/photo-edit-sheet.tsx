@@ -19,10 +19,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Image } from "@/types";
 import { Form, FormDescription, FormField, FormLabel } from "./ui/form";
+import { updateImageDetailsAction } from "@/app/actions";
+import { toast } from "sonner";
+import { revalidatePath } from "next/cache";
 
 const formSchema = z.object({
-  visibility: z.boolean().optional(),
-  description: z.string().optional(),
+  visibility: z.boolean(),
+  description: z.string(),
 });
 
 export type PhotoEditFormValues = z.infer<typeof formSchema>;
@@ -34,10 +37,25 @@ export const PhotoEditSheet = ({ image }: PhotoEditSheetProps) => {
   const form = useForm<PhotoEditFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      visibility: image.tags?.includes("public") ?? false,
+      visibility: image.visibility,
       description: image.display_name ?? "",
     },
   });
+
+  const onSubmit = async (values: PhotoEditFormValues) => {
+    if (!image.public_id) return null;
+
+    try {
+      await updateImageDetailsAction({
+        id: image.public_id,
+        data: values,
+      });
+      toast.success("Photo updated successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("There was an error updating the photo");
+    }
+  };
 
   return (
     <Sheet>
@@ -54,7 +72,7 @@ export const PhotoEditSheet = ({ image }: PhotoEditSheetProps) => {
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(() => {})} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid gap-8 py-4">
               <FormField
                 control={form.control}

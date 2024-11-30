@@ -5,8 +5,9 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { CreatePostFormValues } from "@/components/create-post";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { Image } from "@/types";
+import { PhotoEditFormValues } from "@/components/photo-edit-sheet";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -180,4 +181,28 @@ export const createImagesAction = async (imageData: Image) => {
   if (response.error) {
     throw new Error(response.error.message);
   }
+};
+
+export interface UpdateImageDetailsOptions {
+  id: string;
+  data: PhotoEditFormValues;
+}
+
+export const updateImageDetailsAction = async ({
+  id,
+  data,
+}: UpdateImageDetailsOptions) => {
+  const supabase = await createClient();
+
+  const response = await supabase
+    .from("images")
+    .update({ display_name: data.description, visibility: data.visibility })
+    .eq("public_id", id)
+    .select();
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return revalidatePath("/admin/photos");
 };

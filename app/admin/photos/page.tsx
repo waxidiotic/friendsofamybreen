@@ -42,7 +42,11 @@ export default async function PhotosAdminPage() {
                 </TableCell>
                 <TableCell>{image.display_name}</TableCell>
                 <TableCell>
-                  <span className="text-green-700">Visible</span>
+                  {image.visibility ? (
+                    <span className="text-green-700">Visible</span>
+                  ) : (
+                    <span className="text-red-700">Not Visible</span>
+                  )}
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2 items-center">
