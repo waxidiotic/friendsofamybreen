@@ -8,6 +8,7 @@ import { CreatePostFormValues } from "@/components/create-post";
 import { revalidatePath } from "next/cache";
 import { Image } from "@/types";
 import { PhotoEditFormValues } from "@/components/photo-edit-sheet";
+import { CreateGuestbookEntryFormValues } from "@/components/create-guestbook-entry";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -186,6 +187,25 @@ export const createImagesAction = async (imageData: Image) => {
   return redirect("/photos");
 };
 
+export const createGuestbookEntryAction = async (
+  formData: CreateGuestbookEntryFormValues
+) => {
+  const supabase = await createClient();
+
+  const response = await supabase
+    .from("guestbook_entries")
+    .insert({
+      name: formData.name,
+      message: formData.message,
+    })
+    .select();
+
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
+  return revalidatePath("/guestbook");
+};
 export interface UpdateImageDetailsOptions {
   id: string;
   data: PhotoEditFormValues;
