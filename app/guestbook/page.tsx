@@ -4,10 +4,13 @@ import { createClient } from "@/utils/supabase/server";
 
 export default async function GuestbookPage() {
   const supabase = await createClient();
-  const { data: guestbookEntries } = await supabase
+  const { data: guestbookEntries, error } = await supabase
     .from("guestbook_entries")
     .select("*")
     .order("created_at", { ascending: false });
+  if (error) {
+    console.error("Error fetching guestbook entries:", error.message);
+  }
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">

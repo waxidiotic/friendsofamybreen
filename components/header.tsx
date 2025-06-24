@@ -18,7 +18,10 @@ export default async function Header() {
               <div className="text-xl">Friends of Amy Breen</div>
             </Link>
           </div>
-          <nav className="flex space-x-4 items-center text-muted-foreground transition-colors">
+          <nav
+            aria-label="Main navigation"
+            className="flex space-x-4 items-center text-muted-foreground transition-colors"
+          >
             <Link
               href="/"
               className="hidden sm:block hover:bg-muted hover:text-foreground rounded-md px-2 py-1"

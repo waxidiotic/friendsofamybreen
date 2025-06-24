@@ -16,6 +16,7 @@ import {
 } from "./ui/form";
 import { createGuestbookEntryAction } from "@/app/actions";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters" }),
@@ -88,8 +89,17 @@ export const CreateGuestbookEntry = () => {
               </div>
             )}
           />
-          <Button type="submit" className="self-end" size="sm">
-            Submit
+          <Button
+            type="submit"
+            className="self-end"
+            size="sm"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              "Submit"
+            )}
           </Button>
         </div>
       </form>
