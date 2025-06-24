@@ -18,11 +18,23 @@ export default async function Header() {
               <div className="text-xl">Friends of Amy Breen</div>
             </Link>
           </div>
-          <nav className="flex space-x-4 items-center">
-            <Link href="/" className="text-muted-foreground hidden sm:block">
+          <nav className="flex space-x-4 items-center text-muted-foreground transition-colors">
+            <Link
+              href="/"
+              className="hidden sm:block hover:bg-muted hover:text-foreground rounded-md px-2 py-1"
+            >
               Updates
             </Link>
-            <Link href="/photos" className="text-muted-foreground">
+            <Link
+              href="/guestbook"
+              className="hover:bg-muted hover:text-foreground rounded-md px-2 py-1"
+            >
+              Guestbook
+            </Link>
+            <Link
+              href="/photos"
+              className="hover:bg-muted hover:text-foreground rounded-md px-2 py-1"
+            >
               Photos
             </Link>
             <ThemeSwitcher />

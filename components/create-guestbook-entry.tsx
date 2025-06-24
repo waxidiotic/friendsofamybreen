@@ -14,6 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
+import { createGuestbookEntryAction } from "@/app/actions";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters" }),
@@ -34,7 +36,14 @@ export const CreateGuestbookEntry = () => {
   });
 
   const onSubmit = async (values: CreateGuestbookEntryFormValues) => {
-    console.log(values);
+    try {
+      await createGuestbookEntryAction(values);
+      toast.success("Guestbook entry posted successfully");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      toast.error("There was an error posting your message");
+    }
   };
 
   return (
